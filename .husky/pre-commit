@@ -23,14 +23,14 @@ echo '\n\n Running Pre-commit Checks \n\n'
 
 # Run dotnet format to check EditorConfig rules
 echo '🔍 Checking code format...'
-dotnet format TwitchAnalytics.csproj --verify-no-changes || {
+dotnet format "${PWD}/TwitchAnalytics.csproj" --verify-no-changes || {
     echo '❌ Code format check failed. Run dotnet format to fix formatting issues.'
     exit 1
 }
 
 # Run build with StyleCop analysis
 echo '🔍 Running StyleCop analysis...'
-dotnet build TwitchAnalytics.csproj --no-restore /warnaserror || {
+dotnet build "${PWD}/TwitchAnalytics.csproj" --no-restore /warnaserror || {
     echo '❌ StyleCop analysis failed. Please fix the code style issues.'
     exit 1
 }
