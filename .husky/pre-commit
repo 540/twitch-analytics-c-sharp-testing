@@ -1,0 +1,38 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+## husky task runner examples -------------------
+## Note : for local installation use 'dotnet' prefix. e.g. 'dotnet husky'
+
+## run all tasks
+#husky run
+
+### run all tasks with group: 'group-name'
+#husky run --group group-name
+
+## run task with name: 'task-name'
+#husky run --name task-name
+
+## pass hook arguments to task
+#husky run --args "$1" "$2"
+
+## or put your custom commands -------------------
+#echo 'Husky.Net is awesome!'
+
+echo '\n\n Running Pre-commit Checks \n\n'
+
+# Run dotnet format to check EditorConfig rules
+echo '🔍 Checking code format...'
+dotnet format TwitchAnalytics.csproj --verify-no-changes || {
+    echo '❌ Code format check failed. Run dotnet format to fix formatting issues.'
+    exit 1
+}
+
+# Run build with StyleCop analysis
+echo '🔍 Running StyleCop analysis...'
+dotnet build TwitchAnalytics.csproj --no-restore /warnaserror || {
+    echo '❌ StyleCop analysis failed. Please fix the code style issues.'
+    exit 1
+}
+
+echo '✅ All checks passed!'
