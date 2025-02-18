@@ -1,4 +1,4 @@
-namespace TwitchAnalytics.Models
+namespace TwitchAnalytics.Streamers.Infrastructure
 {
     public class ErrorResponse
     {

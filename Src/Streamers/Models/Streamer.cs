@@ -1,8 +1,10 @@
-namespace TwitchAnalytics.Models
+using System.Text.Json.Serialization;
+
+namespace TwitchAnalytics.Streamers.Models
 {
-    public class TwitchUser
+    public class Streamer
     {
-        public TwitchUser(
+        public Streamer(
             string id,
             string login,
             string displayName,
