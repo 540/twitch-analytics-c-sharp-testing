@@ -1,6 +1,22 @@
 {
   "data": [
     {
+      "id": "12345",
+      "user_id": "12345",
+      "user_login": "ninja",
+      "user_name": "Ninja",
+      "game_id": "33214",
+      "game_name": "Fortnite",
+      "type": "live",
+      "title": "Playing Fortnite!",
+      "viewer_count": 20000,
+      "started_at": "2024-03-20T10:00:00Z",
+      "language": "en",
+      "thumbnail_url": "https://example.com/thumbnail.jpg",
+      "tag_ids": ["123", "456"],
+      "tags": ["English", "FPS"]
+    },
+    {
       "id": "987654321",
       "user_id": "111111111",
       "user_login": "topstreamer1",

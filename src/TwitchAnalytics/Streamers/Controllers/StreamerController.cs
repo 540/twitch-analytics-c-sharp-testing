@@ -9,13 +9,11 @@ namespace TwitchAnalytics.Streamers.Controllers
     [Route("analytics/streamer")]
     public class StreamerController : ControllerBase
     {
-        private readonly GetStreamerService getStreamerService;
-        private readonly ILogger<StreamerController> logger;
+        private readonly GetStreamerService service;
 
-        public StreamerController(GetStreamerService getStreamerService, ILogger<StreamerController> logger)
+        public StreamerController(GetStreamerService service)
         {
-            this.getStreamerService = getStreamerService;
-            this.logger = logger;
+            this.service = service;
         }
 
         [HttpGet]
@@ -27,8 +25,7 @@ namespace TwitchAnalytics.Streamers.Controllers
         {
             try
             {
-                this.logger.LogError("Controller " + id);
-                Streamer streamer = await this.getStreamerService.GetStreamer(id);
+                var streamer = await this.service.GetStreamer(id);
                 return this.Ok(streamer);
             }
             catch (ArgumentException ex)
@@ -39,10 +36,9 @@ namespace TwitchAnalytics.Streamers.Controllers
             {
                 return this.NotFound(new ErrorResponse { Error = ex.Message });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                this.logger.LogError(ex, "Error occurred while fetching Twitch streamer");
-                return this.StatusCode(500, new ErrorResponse { Error = "Internal server error." });
+                return this.StatusCode(500, new ErrorResponse { Error = "An unexpected error occurred while processing your request." });
             }
         }
     }

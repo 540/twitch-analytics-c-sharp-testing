@@ -23,6 +23,14 @@ namespace TwitchAnalytics
 
             var app = builder.Build();
 
+            // Log available endpoints
+            var logger = app.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("API Endpoints:");
+            logger.LogInformation("Base URL: https://localhost:5001");
+            logger.LogInformation("- Swagger UI: https://localhost:5001/swagger");
+            logger.LogInformation("- GET /analytics/streamer?id={{streamerId}}");
+            logger.LogInformation("- GET /analytics/streams/enriched?limit={{limit}}");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

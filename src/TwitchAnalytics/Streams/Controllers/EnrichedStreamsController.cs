@@ -8,11 +8,8 @@ namespace TwitchAnalytics.Streams.Controllers
     [Route("analytics/streams")]
     public class EnrichedStreamsController : ControllerBase
     {
-        private readonly ILogger<EnrichedStreamsController> logger;
-
-        public EnrichedStreamsController(ILogger<EnrichedStreamsController> logger)
+        public EnrichedStreamsController()
         {
-            this.logger = logger;
         }
 
         [HttpGet("enriched")]
@@ -25,7 +22,8 @@ namespace TwitchAnalytics.Streams.Controllers
             {
                 if (limit <= 0 || limit > 100)
                 {
-                    return this.BadRequest(new ErrorResponse { Error = "Invalid 'limit' parameter. Must be between 1 and 100." });
+                    return this.BadRequest(
+                        new ErrorResponse { Error = "Invalid 'limit' parameter. Must be between 1 and 100." });
                 }
 
                 // 1. Get top streams
@@ -50,15 +48,16 @@ namespace TwitchAnalytics.Streams.Controllers
                 var topStreams = streamsResponse.RootElement
                     .GetProperty("data")
                     .EnumerateArray()
-                    .Select(stream => new
-                    {
-                        stream_id = stream.GetProperty("id").GetString(),
-                        user_id = stream.GetProperty("user_id").GetString(),
-                        title = stream.GetProperty("title").GetString(),
-                        viewer_count = stream.GetProperty("viewer_count").GetInt32(),
-                        game_name = stream.GetProperty("game_name").GetString(),
-                        started_at = stream.GetProperty("started_at").GetString()
-                    })
+                    .Select(
+                        stream => new
+                        {
+                            stream_id = stream.GetProperty("id").GetString(),
+                            user_id = stream.GetProperty("user_id").GetString(),
+                            title = stream.GetProperty("title").GetString(),
+                            viewer_count = stream.GetProperty("viewer_count").GetInt32(),
+                            game_name = stream.GetProperty("game_name").GetString(),
+                            started_at = stream.GetProperty("started_at").GetString()
+                        })
                     .OrderByDescending(s => s.viewer_count)
                     .Take(limit)
                     .ToList();
@@ -79,29 +78,31 @@ namespace TwitchAnalytics.Streams.Controllers
                         });
 
                 // 4. Combine stream and user data
-                var enrichedStreams = topStreams.Select(stream =>
-                {
-                    var user = users[stream.user_id!];
-                    return new
+                var enrichedStreams = topStreams.Select(
+                    stream =>
                     {
-                        stream_id = stream.stream_id,
-                        user_id = stream.user_id,
-                        title = stream.title,
-                        viewer_count = stream.viewer_count,
-                        game_name = stream.game_name,
-                        started_at = stream.started_at,
-                        user_display_name = user.display_name,
-                        profile_image_url = user.profile_image_url,
-                        broadcaster_type = user.broadcaster_type
-                    };
-                }).ToList();
+                        var user = users[stream.user_id!];
+                        return new
+                        {
+                            stream_id = stream.stream_id,
+                            user_id = stream.user_id,
+                            title = stream.title,
+                            viewer_count = stream.viewer_count,
+                            game_name = stream.game_name,
+                            started_at = stream.started_at,
+                            user_display_name = user.display_name,
+                            profile_image_url = user.profile_image_url,
+                            broadcaster_type = user.broadcaster_type
+                        };
+                    }).ToList();
 
                 return this.Ok(enrichedStreams);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                this.logger.LogError(ex, "Error occurred while fetching enriched streams");
-                return this.StatusCode(500, new ErrorResponse { Error = "Internal server error." });
+                return this.StatusCode(
+                    500,
+                    new ErrorResponse { Error = "An unexpected error occurred while processing your request." });
             }
         }
 

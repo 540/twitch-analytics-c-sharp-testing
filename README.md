@@ -118,17 +118,17 @@ curl -X GET "https://localhost:7059/analytics/streams/enriched?limit=3"
 **Success Response (200 OK):**
 ```json
 [
-  {
-    "stream_id": "12345",           // from twitch-streams-mock.json
-    "user_id": "12345",            // from twitch-streams-mock.json
-    "title": "Playing Fortnite!",  // from twitch-streams-mock.json
-    "viewer_count": 20000,         // from twitch-streams-mock.json
-    "game_name": "Fortnite",       // from twitch-streams-mock.json
-    "started_at": "2024-03-20T10:00:00Z",  // from twitch-streams-mock.json
-    "user_display_name": "Ninja",  // from twitch-users-mock.json
-    "profile_image_url": "https://example.com/ninja.jpg",  // from twitch-users-mock.json
-    "broadcaster_type": "partner"  // from twitch-users-mock.json
-  }
+   {
+      "stream_id": "12345",
+      "user_id": "12345",
+      "title": "Playing Fortnite!",
+      "viewer_count": 20000,
+      "game_name": "Fortnite",
+      "started_at": "2024-03-20T10:00:00Z",
+      "user_display_name": "Ninja",
+      "profile_image_url": "https://example.com/ninja.jpg",
+      "broadcaster_type": "partner"
+   }
 ]
 ```
 
@@ -170,8 +170,11 @@ Data sources:
 ### StyleCop
 - Configuration in `StyleCop.ruleset`
 - Enforces consistent code style
-- XML documentation requirements disabled
-- Underscore prefix allowed for private fields
+- Rules configured:
+  - XML documentation requirements disabled (CS1591, SA1600)
+  - File headers not required (SA1633)
+  - `this.` prefix optional (SA1101)
+  - Trailing commas optional (SA1413)
 
 ### EditorConfig
 - 4 spaces indentation
@@ -181,6 +184,6 @@ Data sources:
 
 ### Husky.Net
 Pre-commit checks:
-- Code formatting (`dotnet format`)
-- StyleCop analysis
-- Build verification
+- Code formatting: `dotnet format TwitchAnalytics.sln`
+- StyleCop analysis: `dotnet build TwitchAnalytics.sln --no-restore /warnaserror`
+- Runs against entire solution to ensure consistency
