@@ -14,7 +14,8 @@ namespace TwitchAnalytics.UnitTests.Streamers.Services
             Mock<IStreamerManager> streamerManager = new Mock<IStreamerManager>();
             var getStreamerService = new GetStreamerService(streamerManager.Object);
 
-            await Assert.ThrowsAsync<ArgumentException>(() => getStreamerService.GetStreamer(""));
+            var exception = await Assert.ThrowsAsync<ArgumentException>(() => getStreamerService.GetStreamer(""));
+            Assert.Equal("Streamer ID cannot be empty (Parameter 'streamerId')", exception.Message);
 
             streamerManager.Verify(sm => sm.GetStreamer(It.IsAny<string>()), Times.Never);
         }
