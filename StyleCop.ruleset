@@ -2,6 +2,7 @@
 <RuleSet Name="StyleCop.Analyzers rules" Description="StyleCop.Analyzers Rules" ToolsVersion="14.0">
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <!-- Disable requiring XML documentation -->
+    <Rule Id="CS1591" Action="None" />  <!-- Missing XML comment for publicly visible type or member -->
     <Rule Id="SA1633" Action="None" />  <!-- File must have header -->
     <Rule Id="SA1600" Action="None" />  <!-- Elements must be documented -->
     <Rule Id="SA1601" Action="None" />  <!-- Partial elements must be documented -->
@@ -15,9 +16,5 @@
     
     <!-- Make trailing commas optional -->
     <Rule Id="SA1413" Action="None" />  <!-- Use trailing comma in multi-line initializers -->
-    
-    <!-- Disable comment rules -->
-    <Rule Id="SA1512" Action="None" />  <!-- Single-line comments should not be followed by blank line -->
-    <Rule Id="SA1515" Action="None" />  <!-- Single-line comment should be preceded by blank line -->
   </Rules>
 </RuleSet> 

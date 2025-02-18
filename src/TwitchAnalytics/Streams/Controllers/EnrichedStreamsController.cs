@@ -8,24 +8,24 @@ namespace TwitchAnalytics.Streams.Controllers
     [Route("analytics/streams")]
     public class EnrichedStreamsController : ControllerBase
     {
-        private readonly ILogger<EnrichedStreamsController> _logger;
+        private readonly ILogger<EnrichedStreamsController> logger;
 
         public EnrichedStreamsController(ILogger<EnrichedStreamsController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         [HttpGet("enriched")]
         [ProducesResponseType(typeof(List<EnrichedStream>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetEnrichedStreams([FromQuery] int limit = 3)
+        public async Task<IActionResult> GetEnrichedStreams(int limit = 3)
         {
             try
             {
                 if (limit <= 0 || limit > 100)
                 {
-                    return BadRequest(new ErrorResponse { Error = "Invalid 'limit' parameter. Must be between 1 and 100." });
+                    return this.BadRequest(new ErrorResponse { Error = "Invalid 'limit' parameter. Must be between 1 and 100." });
                 }
 
                 // 1. Get top streams
@@ -96,12 +96,12 @@ namespace TwitchAnalytics.Streams.Controllers
                     };
                 }).ToList();
 
-                return Ok(enrichedStreams);
+                return this.Ok(enrichedStreams);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while fetching enriched streams");
-                return StatusCode(500, new ErrorResponse { Error = "Internal server error." });
+                this.logger.LogError(ex, "Error occurred while fetching enriched streams");
+                return this.StatusCode(500, new ErrorResponse { Error = "Internal server error." });
             }
         }
 

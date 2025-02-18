@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+      "id": "12345",
+      "user_id": "12345",
+      "user_login": "ninja",
+      "user_name": "Ninja",
+      "game_id": "33214",
+      "game_name": "Fortnite",
+      "type": "live",
+      "title": "Playing Fortnite!",
+      "viewer_count": 20000,
+      "started_at": "2024-03-20T10:00:00Z",
+      "language": "en",
+      "thumbnail_url": "https://example.com/thumbnail.jpg",
+      "tag_ids": ["123", "456"],
+      "tags": ["English", "FPS"]
+    },
+    {
+      "id": "67890",
+      "user_id": "67890",
+      "user_login": "pokimane",
+      "user_name": "Pokimane",
+      "game_id": "21779",
+      "game_name": "League of Legends",
+      "type": "live",
+      "title": "Ranked Grind!",
+      "viewer_count": 15000,
+      "started_at": "2024-03-20T11:00:00Z",
+      "language": "en",
+      "thumbnail_url": "https://example.com/thumbnail2.jpg",
+      "tag_ids": ["789", "012"],
+      "tags": ["English", "MOBA"]
+    },
+    {
+      "id": "11111",
+      "user_id": "11111",
+      "user_login": "shroud",
+      "user_name": "shroud",
+      "game_id": "512710",
+      "game_name": "Call of Duty: Warzone",
+      "type": "live",
+      "title": "WARZONE TIME!",
+      "viewer_count": 18000,
+      "started_at": "2024-03-20T09:30:00Z",
+      "language": "en",
+      "thumbnail_url": "https://example.com/thumbnail3.jpg",
+      "tag_ids": ["345", "678"],
+      "tags": ["English", "FPS", "Battle Royale"]
+    }
+  ]
+} 

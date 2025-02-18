@@ -9,13 +9,13 @@ namespace TwitchAnalytics.Streamers.Controllers
     [Route("analytics/streamer")]
     public class StreamerController : ControllerBase
     {
-        private readonly GetStreamerService _getStreamerService;
-        private readonly ILogger<StreamerController> _logger;
+        private readonly GetStreamerService getStreamerService;
+        private readonly ILogger<StreamerController> logger;
 
         public StreamerController(GetStreamerService getStreamerService, ILogger<StreamerController> logger)
         {
-            _getStreamerService = getStreamerService;
-            _logger = logger;
+            this.getStreamerService = getStreamerService;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -27,22 +27,22 @@ namespace TwitchAnalytics.Streamers.Controllers
         {
             try
             {
-                _logger.LogError("Controller " + id);
-                Streamer streamer = await _getStreamerService.GetStreamer(id);
-                return Ok(streamer);
+                this.logger.LogError("Controller " + id);
+                Streamer streamer = await this.getStreamerService.GetStreamer(id);
+                return this.Ok(streamer);
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new ErrorResponse { Error = ex.Message });
+                return this.BadRequest(new ErrorResponse { Error = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ErrorResponse { Error = ex.Message });
+                return this.NotFound(new ErrorResponse { Error = ex.Message });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while fetching Twitch streamer");
-                return StatusCode(500, new ErrorResponse { Error = "Internal server error." });
+                this.logger.LogError(ex, "Error occurred while fetching Twitch streamer");
+                return this.StatusCode(500, new ErrorResponse { Error = "Internal server error." });
             }
         }
     }

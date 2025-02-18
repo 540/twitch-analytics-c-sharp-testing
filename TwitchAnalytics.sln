@@ -1,0 +1,25 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchAnalytics", "src/TwitchAnalytics/TwitchAnalytics.csproj", "{38F028E5-D161-4441-8281-5465711CCDB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchAnalytics.UnitTests", "tests\TwitchAnalytics.UnitTests\TwitchAnalytics.UnitTests.csproj", "{00000000-0000-0000-0000-000000000000}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38F028E5-D161-4441-8281-5465711CCDB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F028E5-D161-4441-8281-5465711CCDB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F028E5-D161-4441-8281-5465711CCDB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F028E5-D161-4441-8281-5465711CCDB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00000000-0000-0000-0000-000000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00000000-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal

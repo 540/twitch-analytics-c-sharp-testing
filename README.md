@@ -17,6 +17,12 @@ git clone https://github.com/yourusername/TwitchAnalytics.git
 cd TwitchAnalytics
 ```
 
+2. Create required mock data files:
+```bash
+mkdir -p src/TwitchAnalytics/Data
+# Create twitch-mock-data.json, twitch-streams-mock.json, and twitch-users-mock.json
+```
+
 ### Development
 
 1. Build the project:
@@ -26,6 +32,7 @@ dotnet build
 
 2. Run the project:
 ```bash
+cd src/TwitchAnalytics
 dotnet run
 ```
 
@@ -52,7 +59,7 @@ This use case retrieves detailed information about a Twitch streamer by their ID
 #### Flow
 1. Client requests streamer information via GET endpoint
 2. Service validates the streamer ID
-3. Manager retrieves streamer data (currently from mock data)
+3. Manager retrieves streamer data from `Data/twitch-mock-data.json`
 4. Returns streamer information or appropriate error
 
 #### API Details
@@ -79,25 +86,20 @@ curl -X GET "https://localhost:7059/analytics/streamer?id=12345"
     "createdAt": "2011-11-20T00:00:00Z"
 }
 ```
+Data source: `Data/twitch-mock-data.json`
 
 **Error Responses:**
 - 400 Bad Request: Invalid or empty streamer ID
 - 404 Not Found: Streamer not found
 - 500 Internal Server Error: Server-side error
 
-#### Implementation Details
-- `StreamerController`: Handles HTTP requests and responses
-- `GetStreamerService`: Validates input and orchestrates the operation
-- `StreamerManager`: Contains business logic for retrieving streamer data
-- `FakeTwitchApiClient`: Provides mock data (will be replaced with real Twitch API)
-
 ### 2. Get Enriched Top Streams
 
 This use case retrieves and enriches the top live streams from Twitch, combining stream data with broadcaster information.
 
 #### Flow
-1. Get top streams ordered by viewer count
-2. Get user details for the streamers
+1. Get top streams from `Data/twitch-streams-mock.json`
+2. Get user details from `Data/twitch-users-mock.json`
 3. Combine both datasets
 4. Return enriched stream information
 
@@ -117,59 +119,26 @@ curl -X GET "https://localhost:7059/analytics/streams/enriched?limit=3"
 ```json
 [
   {
-    "stream_id": "987654321",
-    "user_id": "111111111",
-    "title": "Epic Gaming Session",
-    "viewer_count": 34567,
-    "game_name": "Fortnite",
-    "started_at": "2024-01-10T08:00:00Z",
-    "user_display_name": "TopStreamer1",
-    "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/topstreamer1-profile_image.png",
-    "broadcaster_type": "partner"
+    "stream_id": "12345",           // from twitch-streams-mock.json
+    "user_id": "12345",            // from twitch-streams-mock.json
+    "title": "Playing Fortnite!",  // from twitch-streams-mock.json
+    "viewer_count": 20000,         // from twitch-streams-mock.json
+    "game_name": "Fortnite",       // from twitch-streams-mock.json
+    "started_at": "2024-03-20T10:00:00Z",  // from twitch-streams-mock.json
+    "user_display_name": "Ninja",  // from twitch-users-mock.json
+    "profile_image_url": "https://example.com/ninja.jpg",  // from twitch-users-mock.json
+    "broadcaster_type": "partner"  // from twitch-users-mock.json
   }
 ]
 ```
 
+Data sources:
+- Stream data: `Data/twitch-streams-mock.json`
+- User data: `Data/twitch-users-mock.json`
+
 **Error Responses:**
 - 400 Bad Request: Invalid limit parameter
 - 500 Internal Server Error: Server-side error
-
-#### Implementation Details
-- Currently using mock data from two sources:
-  - `twitch-streams-mock.json`: Simulates Twitch's `/streams` endpoint
-  - `twitch-users-mock.json`: Simulates Twitch's `/users` endpoint
-- Streams are ordered by viewer count
-- Each stream is enriched with broadcaster information
-
-## ��️ Technical Stack & Tools
-
-### Core Technologies
-- **.NET 6**: Modern, cross-platform framework
-- **ASP.NET Core**: Web API framework
-- **Swagger/OpenAPI**: API documentation
-
-### Code Quality Tools
-
-#### StyleCop
-StyleCop ensures consistent code style across the project. Key configurations in `StyleCop.ruleset`:
-- No XML documentation required
-- Underscore prefix allowed for private fields
-- System using directives first
-- Flexible comment rules
-
-#### EditorConfig
-Maintains consistent coding styles. Key settings:
-- 4 spaces indentation
-- LF line endings
-- Organized using directives
-- Consistent C# code style rules
-
-#### Husky.Net
-Git hooks for code quality:
-- Pre-commit checks:
-  - Code formatting (`dotnet format`)
-  - StyleCop analysis
-  - Build verification
 
 ## 🏛️ Architecture
 
@@ -186,33 +155,32 @@ Git hooks for code quality:
    - Business logic coordination
    - Input validation
 
-3. **Domain Layer** (Managers & Models)
-   - Core business logic
+3. **Domain Layer** (Managers)
+   - Business logic
    - Domain models
-   - Business rules
+   - Interface definitions
 
 4. **Infrastructure Layer**
-   - External service communication
-   - Currently using mock data for development
+   - External service implementations
+   - Data access
+   - Mock data providers
 
-### Domain-Driven Design
-- Bounded Contexts for domain separation
-- Rich domain models
-- Value Objects (coming soon)
-- Domain Events (coming soon)
+## 🛠️ Code Quality Tools
 
-## 🧪 Development Guidelines
+### StyleCop
+- Configuration in `StyleCop.ruleset`
+- Enforces consistent code style
+- XML documentation requirements disabled
+- Underscore prefix allowed for private fields
 
-### Code Organization
-- Follow Clean Architecture principles
-- Keep classes focused (Single Responsibility)
-- Use dependency injection
-- Implement proper error handling
-- Write meaningful logs
+### EditorConfig
+- 4 spaces indentation
+- LF line endings
+- Organized using directives
+- Consistent C# code style rules
 
-### Error Handling
-Standard HTTP status codes:
-- 200: Success
-- 400: Bad Request
-- 404: Not Found
-- 500: Internal Server Error
+### Husky.Net
+Pre-commit checks:
+- Code formatting (`dotnet format`)
+- StyleCop analysis
+- Build verification
