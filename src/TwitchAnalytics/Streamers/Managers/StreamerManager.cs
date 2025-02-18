@@ -1,10 +1,9 @@
-using Microsoft.Extensions.Logging;
 using TwitchAnalytics.Streamers.Infrastructure;
 using TwitchAnalytics.Streamers.Models;
 
 namespace TwitchAnalytics.Streamers.Managers
 {
-    public class StreamerManager
+    public class StreamerManager : IStreamerManager
     {
         private readonly ITwitchApiClient twitchClient;
 

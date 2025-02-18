@@ -35,4 +35,11 @@ dotnet build "${PWD}/TwitchAnalytics.sln" --no-restore /warnaserror || {
     exit 1
 }
 
+# Run tests
+echo "🧪 Running tests..."
+dotnet test || {
+  echo "❌ Tests failed. Please fix failing tests before committing."
+  exit 1
+}
+
 echo '✅ All checks passed!'

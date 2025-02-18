@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run format check
+echo "🔍 Checking code format..."
+dotnet format --verify-no-changes || {
+  echo "❌ Code format check failed. Run dotnet format to fix formatting issues."
+  exit 1
+}
+
+# Run tests
+echo "🧪 Running tests..."
+dotnet test || {
+  echo "❌ Tests failed. Please fix failing tests before committing."
+  exit 1
+}
+
+echo "✅ All checks passed!" 

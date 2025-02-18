@@ -9,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped(IStreamerManager, StreamerManager);
 builder.Services.AddScoped<ITwitchApiClient, FakeTwitchApiClient>();
-builder.Services.AddScoped<StreamerManager>();
 builder.Services.AddScoped<GetStreamerService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -18,7 +18,7 @@ namespace TwitchAnalytics
 
             // Register application services
             builder.Services.AddScoped<ITwitchApiClient, FakeTwitchApiClient>();
-            builder.Services.AddScoped<StreamerManager>();
+            builder.Services.AddScoped<IStreamerManager, StreamerManager>();
             builder.Services.AddScoped<GetStreamerService>();
 
             var app = builder.Build();

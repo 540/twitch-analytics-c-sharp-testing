@@ -5,9 +5,9 @@ namespace TwitchAnalytics.Streamers.Services
 {
     public class GetStreamerService
     {
-        private readonly StreamerManager streamerManager;
+        private readonly IStreamerManager streamerManager;
 
-        public GetStreamerService(StreamerManager streamerManager)
+        public GetStreamerService(IStreamerManager streamerManager)
         {
             this.streamerManager = streamerManager;
         }
