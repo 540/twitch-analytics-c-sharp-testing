@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "id": "987654321",
+      "user_id": "111111111",
+      "user_login": "topstreamer1",
+      "game_id": "33214",
+      "game_name": "Fortnite",
+      "type": "live",
+      "title": "Epic Gaming Session",
+      "viewer_count": 34567,
+      "started_at": "2024-01-10T08:00:00Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_topstreamer1.jpg",
+      "tags": ["English", "FPS"]
+    },
+    {
+      "id": "123456789",
+      "user_id": "222222222",
+      "user_login": "topstreamer2",
+      "game_id": "21779",
+      "game_name": "League of Legends",
+      "type": "live",
+      "title": "Let's Go!",
+      "viewer_count": 28900,
+      "started_at": "2024-01-10T09:00:00Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_topstreamer2.jpg",
+      "tags": ["English", "MOBA"]
+    },
+    {
+      "id": "555555555",
+      "user_id": "333333333",
+      "user_login": "topstreamer3",
+      "game_id": "509658",
+      "game_name": "Just Chatting",
+      "type": "live",
+      "title": "Playing with viewers",
+      "viewer_count": 15000,
+      "started_at": "2024-01-10T10:00:00Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_topstreamer3.jpg",
+      "tags": ["English", "IRL"]
+    }
+  ]
+} 

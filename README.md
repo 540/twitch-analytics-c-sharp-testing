@@ -43,9 +43,9 @@ The API will be available at:
 - Swagger UI: https://localhost:7059/swagger
 - API Base URL: https://localhost:7059/analytics
 
-## 📋 Use Cases
+## 🎯 Current Features
 
-### Get Streamer Information
+### 1. Get Streamer Information
 
 This use case retrieves detailed information about a Twitch streamer by their ID.
 
@@ -91,7 +91,57 @@ curl -X GET "https://localhost:7059/analytics/streamer?id=12345"
 - `StreamerManager`: Contains business logic for retrieving streamer data
 - `FakeTwitchApiClient`: Provides mock data (will be replaced with real Twitch API)
 
-## 🛠️ Technical Stack & Tools
+### 2. Get Enriched Top Streams
+
+This use case retrieves and enriches the top live streams from Twitch, combining stream data with broadcaster information.
+
+#### Flow
+1. Get top streams ordered by viewer count
+2. Get user details for the streamers
+3. Combine both datasets
+4. Return enriched stream information
+
+#### API Details
+
+**Endpoint:** `GET /analytics/streams/enriched?limit={limit}`
+
+**Parameters:**
+- `limit` (optional): Number of streams to return (default: 3, max: 100)
+
+**Example Request:**
+```bash
+curl -X GET "https://localhost:7059/analytics/streams/enriched?limit=3"
+```
+
+**Success Response (200 OK):**
+```json
+[
+  {
+    "stream_id": "987654321",
+    "user_id": "111111111",
+    "title": "Epic Gaming Session",
+    "viewer_count": 34567,
+    "game_name": "Fortnite",
+    "started_at": "2024-01-10T08:00:00Z",
+    "user_display_name": "TopStreamer1",
+    "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/topstreamer1-profile_image.png",
+    "broadcaster_type": "partner"
+  }
+]
+```
+
+**Error Responses:**
+- 400 Bad Request: Invalid limit parameter
+- 500 Internal Server Error: Server-side error
+
+#### Implementation Details
+- Currently using mock data from two sources:
+  - `twitch-streams-mock.json`: Simulates Twitch's `/streams` endpoint
+  - `twitch-users-mock.json`: Simulates Twitch's `/users` endpoint
+- Streams are ordered by viewer count
+- Each stream is enriched with broadcaster information
+
+## ��️ Technical Stack & Tools
 
 ### Core Technologies
 - **.NET 6**: Modern, cross-platform framework

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using TwitchAnalytics.Streamers.Infrastructure;
 using TwitchAnalytics.Streamers.Managers;
 using TwitchAnalytics.Streamers.Services;
+using TwitchAnalytics.Streams.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
