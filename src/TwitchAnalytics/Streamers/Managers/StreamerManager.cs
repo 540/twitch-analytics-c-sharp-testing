@@ -16,7 +16,7 @@ namespace TwitchAnalytics.Streamers.Managers
         {
             TwitchResponse twitchResponse = await this.twitchClient.GetUserByIdAsync(streamerId);
 
-            var streamer = twitchResponse.Data.FirstOrDefault();
+            Streamer? streamer = twitchResponse.Data.FirstOrDefault();
             if (streamer == null)
             {
                 throw new KeyNotFoundException($"Streamer with ID {streamerId} not found");
