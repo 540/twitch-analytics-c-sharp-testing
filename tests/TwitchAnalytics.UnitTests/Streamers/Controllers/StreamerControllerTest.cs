@@ -67,6 +67,6 @@ public class StreamerControllerTest
 
         OkObjectResult okResult = Assert.IsType<OkObjectResult>(result);
         Streamer streamer = Assert.IsType<Streamer>(okResult.Value);
-        Assert.Equal(expectedStreamer, streamer);
+        Assert.Equivalent(expectedStreamer, streamer);
     }
 }

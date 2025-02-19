@@ -25,7 +25,7 @@ namespace TwitchAnalytics.Streamers.Controllers
         {
             try
             {
-                var streamer = await this.service.GetStreamer(id);
+                Streamer streamer = await this.service.GetStreamer(id);
                 return this.Ok(streamer);
             }
             catch (ArgumentException ex)

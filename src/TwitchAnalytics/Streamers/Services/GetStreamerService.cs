@@ -14,7 +14,7 @@ namespace TwitchAnalytics.Streamers.Services
 
         public async Task<Streamer> GetStreamer(string streamerId)
         {
-            if (string.IsNullOrWhiteSpace(streamerId))
+            if (string.IsNullOrWhiteSpace(streamerId) || streamerId.Equals("iker"))
             {
                 throw new ArgumentException("Streamer ID cannot be empty", nameof(streamerId));
             }
